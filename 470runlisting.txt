@@ -1,0 +1,377 @@
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir$ ./470.sh
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir$ ls
+470  470.sh  Fortran
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir$ cd Fortran
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran$ ls
+Sp
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran$ cd Sp
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp$ ls
+Drivers  Src
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp$ cp Src/src.f Drivers/src.f
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp$ cd Drivers
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ ls
+driver.f  Makefile  res  src.f
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ cat res
+ 
+TOMS470_PRB
+  Test TOMS algorithm 470, for solving
+  an "almost tridiagonal" linear system.
+ 
+TEST01
+  Test FAKUB, a linear system solver
+  for "almost tridiagonal" systems.
+ 
+  Actually, try a true tridiagonal system.
+ 
+  Number of equations, N =      5
+ 
+  Tridiagonal elements:
+ 
+ 0.0E+0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 0.0E+0
+ 
+  Right hand side of linear system:
+ 
+ 2.0
+ 4.0
+ 6.0
+ 8.0
+ 16.0
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+ 1.0
+ 2.0
+ 3.0
+ 4.0
+ 5.0000004
+ 
+TEST02
+  Test FAKUB, a linear system solver
+  for "almost tridiagonal" systems.
+ 
+  Number of equations, N =      5
+ 
+  Tridiagonal elements:
+ 
+ 0.0E+0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 0.0E+0
+ 
+  Indices of unknowns with nonzero
+  non-tridiagonal coefficients.
+ 
+ 5
+ 1
+ 
+  Right hand side of linear system:
+ 
+ -3.0
+ 4.0
+ 6.0
+ 8.0
+ 15.0
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+ 1.0000001
+ 2.0
+ 3.0
+ 4.0
+ 5.0
+ 
+TEST03
+  Test GAUSD, a linear system solver.
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+ 1.0000001
+ 1.9999998
+ 2.9999997
+ 4.0000004
+ 5.0
+ 
+TOMS470_PRB
+  Normal end of execution.
+ 
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ cp res res2
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ make
+f77  -c driver.f
+f77  -c src.f
+src.f:213:72:
+
+  213 |         IF ( IRR(I) ) 60, 30, 60
+      |                                                                        1
+Warning: Fortran 2018 deleted feature: Arithmetic IF statement at (1)
+src.f:216:72:
+
+  216 |           IF ( P - AMAX ) 50, 50, 40
+      |                                                                        1
+Warning: Fortran 2018 deleted feature: Arithmetic IF statement at (1)
+f77  -o driver driver.o src.o 
+./driver >Res
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ cat Res
+ 
+TOMS470_PRB
+  Test TOMS algorithm 470, for solving
+  an "almost tridiagonal" linear system.
+ 
+TEST01
+  Test FAKUB, a linear system solver
+  for "almost tridiagonal" systems.
+ 
+  Actually, try a true tridiagonal system.
+ 
+  Number of equations, N =      5
+ 
+  Tridiagonal elements:
+ 
+   0.00000000       4.00000000      -1.00000000    
+  -1.00000000       4.00000000      -1.00000000    
+  -1.00000000       4.00000000      -1.00000000    
+  -1.00000000       4.00000000      -1.00000000    
+  -1.00000000       4.00000000       0.00000000    
+ 
+  Right hand side of linear system:
+ 
+   2.00000000    
+   4.00000000    
+   6.00000000    
+   8.00000000    
+   16.0000000    
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+   1.00000000    
+   2.00000000    
+   3.00000000    
+   4.00000000    
+   5.00000048    
+ 
+TEST02
+  Test FAKUB, a linear system solver
+  for "almost tridiagonal" systems.
+ 
+  Number of equations, N =      5
+ 
+  Tridiagonal elements:
+ 
+   0.00000000       4.00000000      -1.00000000    
+  -1.00000000       4.00000000      -1.00000000    
+  -1.00000000       4.00000000      -1.00000000    
+  -1.00000000       4.00000000      -1.00000000    
+  -1.00000000       4.00000000       0.00000000    
+ 
+  Indices of unknowns with nonzero
+  non-tridiagonal coefficients.
+ 
+           5
+           1
+ 
+  Right hand side of linear system:
+ 
+  -3.00000000    
+   4.00000000    
+   6.00000000    
+   8.00000000    
+   15.0000000    
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+   1.00000012    
+   2.00000000    
+   3.00000000    
+   4.00000000    
+   5.00000000    
+ 
+TEST03
+  Test GAUSD, a linear system solver.
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+   1.00000012    
+   1.99999976    
+   2.99999976    
+   4.00000048    
+   5.00000000    
+ 
+TOMS470_PRB
+  Normal end of execution.
+ 
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ ls
+driver  driver.f  driver.o  Makefile  res  Res  res2  src.f  src.o
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ cat res
+ 
+TOMS470_PRB
+  Test TOMS algorithm 470, for solving
+  an "almost tridiagonal" linear system.
+ 
+TEST01
+  Test FAKUB, a linear system solver
+  for "almost tridiagonal" systems.
+ 
+  Actually, try a true tridiagonal system.
+ 
+  Number of equations, N =      5
+ 
+  Tridiagonal elements:
+ 
+ 0.0E+0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 0.0E+0
+ 
+  Right hand side of linear system:
+ 
+ 2.0
+ 4.0
+ 6.0
+ 8.0
+ 16.0
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+ 1.0
+ 2.0
+ 3.0
+ 4.0
+ 5.0000004
+ 
+TEST02
+  Test FAKUB, a linear system solver
+  for "almost tridiagonal" systems.
+ 
+  Number of equations, N =      5
+ 
+  Tridiagonal elements:
+ 
+ 0.0E+0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 -1.0
+ -1.0 4.0 0.0E+0
+ 
+  Indices of unknowns with nonzero
+  non-tridiagonal coefficients.
+ 
+ 5
+ 1
+ 
+  Right hand side of linear system:
+ 
+ -3.0
+ 4.0
+ 6.0
+ 8.0
+ 15.0
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+ 1.0000001
+ 2.0
+ 3.0
+ 4.0
+ 5.0
+ 
+TEST03
+  Test GAUSD, a linear system solver.
+ 
+  Solution, which should be (1,2,3,...,n):
+ 
+ 1.0000001
+ 1.9999998
+ 2.9999997
+ 4.0000004
+ 5.0
+ 
+TOMS470_PRB
+  Normal end of execution.
+ 
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ ls
+driver  driver.f  driver.o  Makefile  res  Res  res2  src.f  src.o
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ sloccount driver.f 
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/ian/675dir/470dir/Fortran/Sp/Drivers/driver.f to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+209     top_dir         fortran=209
+
+
+Totals grouped by language (dominant language first):
+fortran:        209 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 209
+Development Effort Estimate, Person-Years (Person-Months) = 0.04 (0.46)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.16 (1.87)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.25
+Total Estimated Cost to Develop                           = $ 5,221
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ sloccount src.f
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/ian/675dir/470dir/Fortran/Sp/Drivers/src.f to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+164     top_dir         fortran=164
+
+
+Totals grouped by language (dominant language first):
+fortran:        164 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 164
+Development Effort Estimate, Person-Years (Person-Months) = 0.03 (0.36)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.14 (1.69)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.21
+Total Estimated Cost to Develop                           = $ 4,048
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ sloccount Makefile
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/ian/675dir/470dir/Fortran/Sp/Drivers/Makefile to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+0       top_dir         (none)
+SLOC total is zero, no further analysis performed.
+ian@ian-HP-Stream-Notebook-PC-11:~/675dir/470dir/Fortran/Sp/Drivers$ 
+`
